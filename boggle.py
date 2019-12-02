@@ -24,6 +24,39 @@ board = [[letter.lower() for letter in row] for row in board]
 
 length_of_board = len(board)
 
+dice  = [
+['A','A','A','F','R','S'],
+['A','A','E','E','E','E'],
+['A','A','F','I','R','S'],
+['A','D','E','N','N','N'],
+['A','E','E','E','E','M'],
+['A','E','E','G','M','U'],
+['A','E','G','M','N','N'],
+['A','F','I','R','S','Y'],
+['B','B','J','K','X','Z'],
+['C','C','E','N','S','T'],
+['E','I','I','L','S','T'],
+['C','E','I','P','S','T'],
+['D','D','H','N','O','T'],
+['D','H','H','L','O','R'],
+['D','H','H','N','O','W'],
+['D','H','L','N','O','R'],
+['E','I','I','I','T','T'],
+['E','I','L','P','S','T'],
+['E','M','O','T','T','T'],
+['E','N','S','S','S','U'],
+['Qu','In','Th','Er','He','An'],
+['G','O','R','R','V','W'],
+['I','P','R','S','Y','Y'],
+['N','O','O','T','U','W'],
+['O','O','O','T','T','U']
+]
+
+def shake_board():
+    rolled_dice = [random.choice(elem) for elem in dice ]
+    random.shuffle(rolled_dice)
+    return np.reshape(np.array(rolled_dice),[length_of_board,length_of_board])
+
 def neighbors(index,available):
     vert = np.array([0,1])
     horz = np.array([1,0])
@@ -63,6 +96,8 @@ def solve():
     #TODO: Gracefully degrade if boards has empties
     available = np.full((length_of_board, length_of_board), True)
     dictionary = word_list(dictionary_name)
+    board = shake_board()
+    print(board)
     for i in range(length_of_board):
         for j in range(length_of_board):
             iterate("",available.copy(),[i,j],dictionary)
