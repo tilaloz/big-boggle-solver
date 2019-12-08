@@ -7,22 +7,24 @@ An attempt to learn python (again) and write a big boggle board solver
 """
 
 import numpy as np
+import random
 
 # Set defaults for Big Boggle Rules
 dictionary_name = "Collins Scrabble Words (2015).txt"
-
+length_of_board = 5
 minimum_word_length = 4
 found = [] 
 
-board =          [["t","n","a","a","r"],
-                  ["t","e","l","o","e"],
-                  ["s","O","e","qu","o"],
-                  ["e","x","g","e","y"],
-                  ["t","c","d","i","h"]]
+def shake_board():
+    rolled_dice = [random.choice(elem) for elem in dice ]
+    random.shuffle(rolled_dice)
+    return np.reshape(np.array(rolled_dice),[length_of_board,length_of_board])
 
-board = [[letter.lower() for letter in row] for row in board]
-
-length_of_board = len(board)
+#board =          [["t","n","a","a","r"],
+#                  ["t","e","l","o","e"],
+#                  ["s","O","e","qu","o"],
+#                  ["e","x","g","e","y"],
+#                  ["t","c","d","i","h"]]
 
 dice  = [
 ['A','A','A','F','R','S'],
@@ -52,10 +54,12 @@ dice  = [
 ['O','O','O','T','T','U']
 ]
 
-def shake_board():
-    rolled_dice = [random.choice(elem) for elem in dice ]
-    random.shuffle(rolled_dice)
-    return np.reshape(np.array(rolled_dice),[length_of_board,length_of_board])
+
+board = shake_board()
+board = [[letter.upper() for letter in row] for row in board]
+
+
+
 
 def neighbors(index,available):
     vert = np.array([0,1])
@@ -88,7 +92,7 @@ def iterate(stub,available,index,dictionary):
 def word_list(dictionary_name):
     # Open the dictionary file and read in the words
     with open(dictionary_name,'r') as f:
-        words = f.read().lower().split('\n')
+        words = f.read().upper().split('\n')
         words = [elem for elem in words if len(elem) >= minimum_word_length]
         return words
         

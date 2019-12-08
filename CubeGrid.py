@@ -97,22 +97,19 @@ class CubeGridXY:
       
         
     def add_neighbor(self,neighbor):
-        """Add a neighbor link (if not already) added"""
+        """Add a neighbor link to another CubeGridXY (if not already added)"""
         if self != neighbor: # No, you can't be your own neighbor
             if not neighbor in self.neighbors: # only neighbors once!
                 self.neighbors.append(neighbor)
-                neighbor.neighbors.append(self) #You got to friend him back!
-                # This line works too... probably more proper
-                #neighbor.add_neighbor(self) 
                 
                 
     def remove_neighbor(self,neighbor):
-        """Remove the neighbor link between CubeGridXY"""
+        """Remove the neighbor link to another CubeGridXY"""
         if neighbor in self.neighbors: 
             self.neighbors.remove(neighbor)
-            neighbor.neighbors.remove(self) #Fine, we aren't friends!
-            # Again, line below works too... probably more proper
-            #neighbor.remove_neighbor(self) 
+        # Could remove the neighbors link back to us but that makes it not a 
+        # directed graph         
+            
 
 def main():
     dictionary = word_list(dictionary_name)
